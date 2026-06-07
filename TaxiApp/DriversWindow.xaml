@@ -1,0 +1,79 @@
+﻿<Window x:Class="TaxiApp.DriversWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="👥 Управление водителями" Height="600" Width="1000"
+        WindowStartupLocation="CenterOwner"
+        Background="#FFF5F5DC">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <Border Grid.Row="0" Background="#FFD4AF37" CornerRadius="10" Padding="15" Margin="0,0,0,15">
+            <TextBlock Text="👨‍️ Водители и автомобили" FontSize="24" FontWeight="Bold" 
+                       HorizontalAlignment="Center"/>
+        </Border>
+
+        <!-- Список водителей -->
+        <Border Grid.Row="1" Background="#FFFDF5E0" CornerRadius="10" Padding="15">
+            <DataGrid x:Name="dgDrivers" AutoGenerateColumns="False" 
+                      CanUserAddRows="False" CanUserDeleteRows="False"
+                      GridLinesVisibility="Horizontal"
+                      RowHeight="50"
+                      FontSize="13">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="#FFD4AF37"/>
+                        <Setter Property="Foreground" Value="#2C2C2C"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="Padding" Value="10,8"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="Padding" Value="8,5"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#FFFFE080"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.CellStyle>
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="Background" Value="#FFFFFF"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FFFFF0C0"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                    <DataGridTextColumn Header="ФИО" Binding="{Binding FullName}" Width="200"/>
+                    <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}" Width="150"/>
+                    <DataGridTextColumn Header="№ прав" Binding="{Binding LicenseNumber}" Width="150"/>
+                    <DataGridTextColumn Header="Автомобиль" Binding="{Binding Vehicle.Model}" Width="180"/>
+                    <DataGridTextColumn Header="Гос. номер" Binding="{Binding Vehicle.LicensePlate}" Width="150"/>
+                    <DataGridTextColumn Header="Цвет" Binding="{Binding Vehicle.Color}" Width="100"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <!-- Кнопки -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
+            <Button Content="➕ Добавить" Style="{StaticResource SkeuoButton}" 
+                    Click="btnAdd_Click" Width="130" Margin="0,0,10,0"/>
+            <Button Content="✏️ Изменить" Style="{StaticResource SkeuoButton}" 
+                    Click="btnEdit_Click" Width="130" Margin="0,0,10,0"/>
+            <Button Content="❌ Закрыть" Style="{StaticResource SkeuoButton}" 
+                    Click="btnClose_Click" Width="120"/>
+        </StackPanel>
+    </Grid>
+</Window>
